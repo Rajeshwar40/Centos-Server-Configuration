@@ -1,0 +1,36 @@
+NIS Configuration
+
+Server
+1. yum install ypserv yp-tools
+2. ypdomainname "domainName"
+3. In /etc/sysconfig/network : Add  NISDOMAIN="domainName"
+4. In /var/yp/securenets : Add The Network that can access NIS as 
+	255.255.255.0	192.168.1.0
+5. systemctl start ypserv
+6. /usr/lib64/yp/ypinit -m
+
+To update NIS Maps after adding user
+	/var/yp/make
+
+Client
+1. yum install ypbind yp-tools
+2. authconfig-tui
+	a. Select NIS
+	b. Select Shadow Passwords
+	c. Add NIS Domain Name
+3. systemctl start ypbind
+4. To check : ypcat passwd
+NOTE: To Debug: ypbind -no-dbus -debug
+
+
+NFS Configuration
+
+Server
+1. yum install nfs-utils
+2. Edit /etc/exports
+	/home	10.10.10.0/24 (rw,sync,no_root_squash)
+3. systemctl start nfs
+
+Client
+2. yum install nds-utils
+1. mount -t nfs 10.10.10.2:/home  /home

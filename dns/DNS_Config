@@ -1,0 +1,12 @@
+1. yum install bind
+2. Declare Forward and Reversse Zone in /etc/named.conf and aloow query to any and bind to any
+3. Create Zone Files in /var/named
+4. Change Ownership to named:named
+5. systemctl start named
+
+Note: To check conf file : named-checkconf
+      To check zone file : named-checkzone "zone name" "file Name"
+
+For Master - Slave :
+1. Add allow-transfer { "ip"; }; in master's config particular zone
+2. In slave-named.conf : Define zone and type as slave and masters { "ip"; };

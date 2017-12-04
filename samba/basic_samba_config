@@ -1,0 +1,19 @@
+SAMBA SERVER CONFIGURATION
+1. yum install samba
+2. Create folder to be shared
+3. In /etc/samba/smb.conf add the share:
+	[myshare]
+		path = /folderToShare
+		valid users = student
+		readonly = no
+		browseable = yes
+		writable = yes
+		guest ok = yes
+		map to guest = bad user
+4. chown student:student /folderToShare
+5. testparm : //To check configurations
+6. add samba users : smbpasswd -a "username"
+7. Disable selinux and iptables
+8. systemctl start samba
+
+

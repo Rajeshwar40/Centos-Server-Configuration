@@ -1,0 +1,60 @@
+Configuring Apache
+1. yum install httpd
+2. systemctl start httpd
+3. Put your files in /var/www/html
+
+
+Configuring Virtual Host
+1. In /var/www/html : Create two folders say site1 and site2
+2. Change Ownership to apache : 
+	chown apache:apache -R site1 
+	chown apache:apache -R site2
+3. Add index.html in both directories
+4. In /etc/httpd:
+	mkdir sites-available
+	mkdir sites-enabled
+5. In /etc/httpd/conf/httpd.conf:
+	In the end of the file:
+        IncludeOptional sites-enabled/*.conf
+6. In sites-available:
+	vim site1.com.conf
+	<VirtualHost *:80>
+		ServerName www.site1.com
+		ServerAlias site1.com
+		DocumentRoot /var/www/html/site1/
+		ErrorLog /var/www/html/site1/error.log
+		CustomLog /var/www/html/site1/request.log combined
+	</VirtualHost>
+
+	cp site1.com.conf site2.com.conf
+	vim site2.com.conf
+	change Accordingly
+7. Create symbolic links from sites-available to sites-enabled:
+	ln -s /etc/httpd/sites-available/site1.com.conf /etc/httpd/site-enabled/site1.com.conf
+	ln -s /etc/httpd/sites-available/site12.com.conf /etc/httpd/site-enabled/site2.com.conf
+8. setenforce 0
+9. service httpd restart
+10. Edit Hosts file as IP -> Domain
+
+
+
+Configuring SSL:
+1. yum install httpd openssl mod_ssl
+2. mkdir /certs cd into it
+3. Create Certificates:
+	openssl genrsa -out ca.key 2048
+	openssl req -new -key ca.key -out ca.csr
+	openssl x509 -req -days 365 -in ca.csr -signkey ca.key -out ca.crt
+4. Copy the keys to right location:
+	cp ca.crt /etc/pki/tls/certs/
+	cp ca.key ca.csr /etc/pki/tls/private/
+5. Open /etc/httpd/conf.d/ssl.conf
+	SSLCertificateFile /etc/pki/tls/certs/ca.crt
+	SSLCertificateKeyFile 	/etc/pki/tls/private/ca.key
+6.Configure the Virtual Host:
+	<VirtualHost *:443>
+		SSLEngine on
+		SSLCertificateFile	/etc/pki/tls/certs/ca.crt
+		SSLCertificateKeyFile 	/etc/pki/tls/private/ca.key
+	</VirtualHost>
+

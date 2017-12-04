@@ -1,0 +1,14 @@
+$TTL 1D
+@	IN SOA	magic.com.	root.magic.com. (
+					0	; serial
+					1D	; refresh
+					1H	; retry
+					1W	; expire
+					3H )	; minimum
+	NS	ns1.magic.com.		
+	A	10.10.10.100
+	MX	1	mail.magic.com.
+ns1	A	10.10.10.100
+mail	A	10.10.10.101
+tri	A	10.10.10.2		
+career	A	10.10.10.102

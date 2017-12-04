@@ -1,0 +1,6 @@
+1. yum install squid
+2. Configuration File in /etc/squid/squid.conf
+3. ACL: 
+	acl allowednet src 192.168.1.0/24
+	http_access allow allowednet
+4. systemctl start squid

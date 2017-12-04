@@ -1,0 +1,14 @@
+$TTL 1D
+@	IN SOA	magic.com.	root.magic.com. (
+					0	; serial
+					1D	; refresh
+					1H	; retry
+					1W	; expire
+					3H )	; minimum
+10.10.10.in-addr.arpa	NS	ns1.magic.com.
+@	NS	ns1.magic.com.
+	A	10.10.10.100
+2	IN	PTR	tri.magic.com.
+100	IN	PTR	ns1.magic.com.
+102	IN	PTR	career.magic.com.
+101	IN	PTR	mail.magic.com.
