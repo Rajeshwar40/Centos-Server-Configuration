@@ -1,0 +1,18 @@
+1. yum install vsftpd ftp -y
+2. vim /etc/vsftpd/vsftpd.conf and Edit following lines
+	## Disable anonymous login ##
+		anonymous_enable=NO
+
+	## Uncomment ##
+		ascii_upload_enable=YES
+		ascii_download_enable=YES
+
+	## Uncomment - Enter your Welcome message - This is optional ##
+		ftpd_banner=Welcome to UNIXMEN FTP service.
+
+	## Add at the end of this  file ##
+		use_localtime=YES
+3. setenforce 0
+4. systemctl stop firewalld
+5. systemctl start vsftpd
+6. Create user for ftp

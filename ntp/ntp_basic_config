@@ -1,0 +1,7 @@
+1. yum install ntp
+2. Visit www.pool.ntp.org/en -> Select a zone for your Continet and country
+3. paste the zones in zone area
+4. uncomment restrict 192.168.3.0 mask 255.255.255.0 nomodify notrap 
+5. systemctl start ntp
+6. To check: ntpq -p
+	     date -R

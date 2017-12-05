@@ -1,0 +1,8 @@
+1. yum install quota
+2. In /etc/fstab Add type of quota following defaults
+	defaults , usrquota
+3. partprobe
+4. quotacheck -um /dev/sdb1 ://To create quota table
+5. quotaon -uv /dev/sdb1
+6. quotaon -ap :To check
+7. edquota -u "username"
