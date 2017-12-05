@@ -1,0 +1,16 @@
+POSTFIX SERVER CONFIGURATION
+1. yum remove sendmail
+2. yum install postfix
+3. alternatives --set mta /usr/sbin/postfix OR alternatives --set mta /usr/sbin/sendmail.postfix
+4. In /etc/postfix/main.cf
+	myhostname = mail.magic.com
+	mydomain = magic.com
+	myorigin = $mydomain
+	inet_interfaces = all
+	mydestination = $myhostname , localhost , $mydomain
+	mynetworks = 127.0.0.0/8, /32
+	relay_domains = $mydestination
+	home_mailbox = Maildir/
+5. service postfix start
+6. Disable selinux , firewall and iptables
+

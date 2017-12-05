@@ -1,0 +1,14 @@
+SENDMAIL SERVER CONFIGURATION
+Packages Needed
+	mailx , sendmail , sendmail-cf , dovecot , m4 , mutt
+
+1. yum install mailx sendmail sendmail-cf dovecot m4 mutt
+2. In /etc/mail/sendmail.mc:
+	dnl DAEMON_OPTIONS line
+	Uncomment relay_based_on_hosts line
+	Save the file
+3. m4 /etc/mail/sendmail.mc > /etc/mail/sendmail.cf
+4. check HOSTNAME (/etc/hostname) and nmtui
+5. systemctl start sendmail
+
+To Check: mail -s "Test mail" root@mail.magic.com
